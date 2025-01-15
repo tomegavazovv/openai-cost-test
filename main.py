@@ -41,9 +41,9 @@ def test_prompt(prompt, model="gpt-3.5-turbo"):
     
     # Adjust system message based on mode
     if mode == "json":
-        system_message = "You will receive a prompt to evaluate. Respond with a JSON object containing a 'score' field with a value from 0-100."
+        system_message = "You will receive a prompt to evaluate. Respond with a JSON object containing a 'score' field (0-100) and a 'reasoning' field (one sentence, max 150 chars) explaining the score."
     else:
-        system_message = "You will receive a prompt to evaluate. Respond with a score from 0-100."
+        system_message = "You will receive a prompt to evaluate. Respond with a score from 0-100 and a one sentence reasoning (max 250 chars)."
     
     # Base message structure
     messages = [
@@ -58,7 +58,9 @@ def test_prompt(prompt, model="gpt-3.5-turbo"):
             messages=messages,
             response_format={ "type": "json_object" },
         )
-        score = json.loads(response.choices[0].message.content)["score"]
+        content = json.loads(response.choices[0].message.content)
+        score = content["score"]
+        reasoning = content["reasoning"]
     else:  # function mode
         response = client.chat.completions.create(
             model=model,
@@ -71,14 +73,20 @@ def test_prompt(prompt, model="gpt-3.5-turbo"):
                         "score": {
                             "type": "number",
                             "description": "The score from 0-100"
+                        },
+                        "reasoning": {
+                            "type": "string",
+                            "description": "One sentence explanation for the score (max 250 chars)"
                         }
                     },
-                    "required": ["score"]
+                    "required": ["score", "reasoning"]
                 }
             }],
             function_call={"name": "get_score"}
         )
-        score = json.loads(response.choices[0].message.function_call.arguments)["score"]
+        content = json.loads(response.choices[0].message.function_call.arguments)
+        score = content["score"]
+        reasoning = content["reasoning"]
     
     total_cost, input_cost, output_cost = get_token_cost(
         response.usage.prompt_tokens,
@@ -94,7 +102,8 @@ def test_prompt(prompt, model="gpt-3.5-turbo"):
         "input_cost": input_cost,
         "output_cost": output_cost,
         "total_cost": total_cost,
-        "score": score
+        "score": score,
+        "reasoning": reasoning
     }
 
 # Example usage
@@ -117,6 +126,7 @@ if __name__ == "__main__":
             col1, col2, col3 = st.columns(3)
             with col1:
                 st.metric("Score", f"{result['score']}/100")
+                st.write("Reasoning:", result['reasoning'])
             with col2:
                 st.metric("Total Tokens", result['total_tokens'])
             with col3:
