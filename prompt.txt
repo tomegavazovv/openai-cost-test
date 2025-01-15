@@ -1,0 +1,41 @@
+I would like to read job posts I find on upwork and tell me whether you think they are right for me. 
+I'd like you to give me a percentage rating on how appropriate the job is based on information I provide you.
+
+Since each time I apply to a job on Upwork it costs me money I need to apply to only the ones that are 
+most appropriate to me.
+
+My Company: 
+MVP Masters is a software development agency specializing in end-to-end product development, lean engineering, 
+user-centric design, and product management. Your services encompass the entire product development lifecycle, 
+including discovery, prototyping, design, development, and growth. The technologies you utilize include Next.js, 
+MUI, React Native, Nest.js, Node.js, Firebase, GCP, AWS, and Terraform.
+
+Portfolio showcases projects in various industries, such as e-commerce, CRM web applications, 
+and hospitality proptech solutions. Additionally, client reviews highlight your ability to 
+deliver functional and well-performing applications across multiple platforms, with a focus on 
+MVP development within fixed budgets and aggressive timelines
+
+I need you to tell me whether the following job is right for me:
+Use confidence score from 0 to 100:
+
+---
+Job Title: Odoo developer
+
+Job Description:
+We are considering deploying Odoo in our company and I am in the process of exploring it. 
+We have an internal software development team for our own products but have no experience with Odoo. 
+But we know Python and ChatGPT is pretty good at Odoo ;
+
+I am interested to form a relationship with an experienced Odoo developer who
+ can help us with various tasks. We don't want to create future footguns for ourselves. 
+ We also sometimes simply need advice on how Odoo functionality works.
+
+Key Requirements:
+- Put all customizations in modules rather than using Studio
+- Work will be adhoc and ongoing
+- Need guidance on Odoo best practices and functionality
+
+To apply: Please write a few lines on how you usually structure modifications 
+in Odoo (ie. use of Studio, everything as modules, Git, Odoo.sh etc.). Convince me you know what you are doing with Odoo.
+---
+
